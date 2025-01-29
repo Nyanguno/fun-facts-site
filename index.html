@@ -10,7 +10,6 @@
             text-align: center;
             background: #121212;
             color: white;
-            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -24,16 +23,12 @@
             box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
             max-width: 600px;
             width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
         h1 {
-            color: #ffffff;
+            color: #ffcc00;
         }
         p {
             font-size: 20px;
-            color: #ddd;
             font-weight: bold;
             margin: 20px 0;
         }
@@ -46,7 +41,6 @@
             border-radius: 5px;
             font-size: 16px;
             margin: 5px;
-            display: none;
         }
         button:hover {
             background: #0056b3;
@@ -58,7 +52,8 @@
         <h1>Did You Know?</h1>
         <p id="fact">Click the button to get a fun fact!</p>
         <button onclick="generateFact()">Get a Fun Fact</button>
-        <button id="downloadBtn" onclick="downloadFact()">Download Fact</button>
+        <button onclick="downloadFactImage()">Download Fact</button>
+        <canvas id="factCanvas" style="display: none;"></canvas>
     </div>
 
     <script>
@@ -75,15 +70,26 @@
         function generateFact() {
             const randomIndex = Math.floor(Math.random() * facts.length);
             document.getElementById("fact").innerText = facts[randomIndex];
-            document.getElementById("downloadBtn").style.display = "inline-block";
         }
 
-        function downloadFact() {
+        function downloadFactImage() {
             const factText = document.getElementById("fact").innerText;
-            const blob = new Blob([factText], { type: "text/plain" });
+            const canvas = document.getElementById("factCanvas");
+            const ctx = canvas.getContext("2d");
+            canvas.width = 600;
+            canvas.height = 200;
+            
+            ctx.fillStyle = "#1e1e1e";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "white";
+            ctx.font = "20px Arial";
+            ctx.textAlign = "center";
+            ctx.fillText(factText, canvas.width / 2, canvas.height / 2);
+            
+            const image = canvas.toDataURL("image/png");
             const a = document.createElement("a");
-            a.href = URL.createObjectURL(blob);
-            a.download = "fun_fact.txt";
+            a.href = image;
+            a.download = "fun_fact.png";
             a.click();
         }
     </script>
