@@ -8,27 +8,32 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            background: #121212;
+            color: white;
             padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
         }
         .container {
-            background: white;
+            background: #1e1e1e;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
             max-width: 600px;
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         h1 {
-            color: #333;
+            color: #ffffff;
         }
         p {
             font-size: 20px;
-            color: #444;
+            color: #ddd;
             font-weight: bold;
             margin: 20px 0;
         }
@@ -41,6 +46,7 @@
             border-radius: 5px;
             font-size: 16px;
             margin: 5px;
+            display: none;
         }
         button:hover {
             background: #0056b3;
@@ -52,7 +58,7 @@
         <h1>Did You Know?</h1>
         <p id="fact">Click the button to get a fun fact!</p>
         <button onclick="generateFact()">Get a Fun Fact</button>
-        <button onclick="downloadFact()">Download Fact</button>
+        <button id="downloadBtn" onclick="downloadFact()">Download Fact</button>
     </div>
 
     <script>
@@ -69,6 +75,7 @@
         function generateFact() {
             const randomIndex = Math.floor(Math.random() * facts.length);
             document.getElementById("fact").innerText = facts[randomIndex];
+            document.getElementById("downloadBtn").style.display = "inline-block";
         }
 
         function downloadFact() {
