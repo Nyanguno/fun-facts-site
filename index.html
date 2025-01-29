@@ -51,7 +51,7 @@
     <div class="container">
         <h1>Did You Know?</h1>
         <p id="fact">Click the button to get a fun fact!</p>
-        <button onclick="generateFact()">Get a Fun Fact</button>
+        <button id="factButton">Get a Fun Fact</button>
         <button onclick="downloadFactImage()">Download Fact</button>
         <canvas id="factCanvas" style="display: none;"></canvas>
     </div>
@@ -240,7 +240,7 @@
 
         function generateFact() {
             const randomIndex = Math.floor(Math.random() * facts.length);
-            document.getElementById("fact").innerText = facts[randomIndex];
+            document.getElementById("factButton").addEventListener("click", generateFact);
         }
 
         function downloadFactImage() {
